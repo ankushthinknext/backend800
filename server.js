@@ -1,6 +1,6 @@
 import express from "express";
 import dotenv from "dotenv";
-
+import cors from "cors";
 //Routes Imports
 import productsRoutes from "./routes/productsRoutes.js";
 import usersRoutes from "./routes/usersRoutes.js";
@@ -13,6 +13,7 @@ import morgan from "morgan";
 
 const app = express();
 app.use(express.json());
+app.use(cors());
 app.use(morgan("tiny"));
 app.use(express.static("uploads"));
 

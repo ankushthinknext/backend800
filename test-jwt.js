@@ -1,19 +1,16 @@
-import jwt from "jsonwebtoken";
-//token creation
+import transport from "./config/nodemailerConfig.js";
 
-let secret = "dfskljds238923@#423498232#$234982304";
+const message = {
+  from: "ankush.thinknext@gmail.com",
+  to: "info@thinknext.co.in",
+  subject: "User Auth Message",
+  text: "This is a verfication message",
+  html: "<p>HTML version of the message</p>",
+};
 
-let token2 =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjM4NDk4LCJuYW1lIjoiTU9oaXQiLCJsb2NhdGlvbiI6Ik1vaGFsaSIsImV4cGlyZXNJbiI6MjAsImlhdCI6MTY1MTExODcwMH0.-fNmlpKWZT_ZrLqiltwqNeZBJ1rZUpWbANqoGoZHOVc";
-
-let token =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjM4NDk4LCJuYW1lIjoiTU9oaXQiLCJsb2NhdGlvbiI6Ik1vaGFsaSIsImlhdCI6MTY1MTExNzkzN30.ED3HvuJUmCOt3WIh-6vJWPbtZvwWOD1dMttDuhPrpgM";
-
-let info = jwt.verify(token2, secret);
-let duration = parseInt(new Date().getTime() / 1000) - info.iat;
-if (duration > info.expiresIn) {
-  console.log("Token has expired");
+async function sendMail() {
+  let result = await transport.sendMail(message);
+  console.log(result);
 }
-console.log("duration", duration);
 
-console.log(info);
+sendMail();

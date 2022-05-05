@@ -21,7 +21,7 @@ async function getProducts(req, res) {
   try {
     let result = await Product.find()
       .sort({ [sortBy]: sortOrder || 1 })
-      .limit(limit || 10)
+      .limit(limit || 100)
       .skip(parseInt(page) * limit);
     res.status(200).send(result);
   } catch (error) {
