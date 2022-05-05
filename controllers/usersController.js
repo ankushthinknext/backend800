@@ -24,7 +24,9 @@ async function createUser(req, res) {
       from: "ankush.thinknext@gmail.com",
       to: req.body.email,
       subject: "Account Verification",
-      html: `verify with this token ${token}`,
+      html: `<h2>Verify yours Account Using below link<h2>
+        <a href="http://localhost:2345/auth/verify?token=${token}">VERIFY</a>
+      `,
     };
     await transport.sendMail(mailData);
 

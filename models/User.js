@@ -11,7 +11,7 @@ const userSchema = new mongoose.Schema({
   role: { type: String, enum: ["Admin", "Cashier", "User"], default: "User" },
   password: { type: String, minlength: 3, maxlength: 100, required: true },
   name: { type: String, minlength: 3, maxlength: 50, required: true },
-  isVerified: { type: Boolean },
+  isVerified: { type: Boolean, default: false },
 });
 
 export default new mongoose.model("users", userSchema);

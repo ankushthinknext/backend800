@@ -25,4 +25,18 @@ async function login(req, res) {
   }
 }
 
-export { login };
+async function verify(req, res) {
+  try {
+    let { token } = req.query;
+    let decodedInfo = jwt.verify(token, process.env.JWT_SECRET_KEY);
+    console.log(decodedInfo);
+    let user = await User.findOneAndUpdate(
+      { email: decodedInfo.email },
+      { isVerified: true },
+    );
+    res.status(200).send("Your account has been verified");
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
+}
+export { login, verify };
