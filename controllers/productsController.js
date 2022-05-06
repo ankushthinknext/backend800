@@ -4,11 +4,12 @@ import cloudinaryUploader from "../config/cloudinaryConfig.js";
 async function createProduct(req, res) {
   try {
     const fileUrls = [];
-    for (let file of req.files) {
-      let result = await cloudinaryUploader.uploader.upload(file.path);
-      fileUrls.push(result.secure_url);
+    if (req.files) {
+      for (let file of req.files) {
+        let result = await cloudinaryUploader.uploader.upload(file.path);
+        fileUrls.push(result.secure_url);
+      }
     }
-
     let result = await Product.create({ ...req.body, images: fileUrls });
     res.status(201).send({ result });
   } catch (error) {
@@ -19,11 +20,12 @@ async function createProduct(req, res) {
 async function getProducts(req, res) {
   let { limit, page, sortBy, sortOrder } = req.query;
   try {
+    let count = await Product.find().count();
     let result = await Product.find()
       .sort({ [sortBy]: sortOrder || 1 })
-      .limit(limit || 100)
+      .limit(limit || 10)
       .skip(parseInt(page) * limit);
-    res.status(200).send(result);
+    res.status(200).send({ totalRecords: count, result });
   } catch (error) {
     res.status(400).send(error.message);
   }
