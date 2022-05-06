@@ -41,6 +41,19 @@ async function getProduct(req, res) {
   }
 }
 
+async function updateProduct(req, res) {
+  console.log(req.body);
+  try {
+    let result = await Product.findOneAndUpdate(
+      { _id: req.body._id },
+      req.body,
+    );
+    res.status(200).send("Product Updated");
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
+}
+
 async function deleteProduct(req, res) {
   try {
     let result = await Product.deleteOne({ _id: req.params.id });
@@ -50,4 +63,4 @@ async function deleteProduct(req, res) {
   }
 }
 
-export { createProduct, getProducts, getProduct, deleteProduct };
+export { createProduct, getProducts, getProduct, deleteProduct, updateProduct };
