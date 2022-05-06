@@ -22,6 +22,7 @@ async function getProducts(req, res) {
   try {
     let count = await Product.find().count();
     let result = await Product.find()
+      .populate("category")
       .sort({ [sortBy]: sortOrder || 1 })
       .limit(limit || 10)
       .skip(parseInt(page) * limit);
@@ -33,7 +34,7 @@ async function getProducts(req, res) {
 
 async function getProduct(req, res) {
   try {
-    let result = await Product.findById(req.params.id);
+    let result = await Product.findById(req.params.id).populate("category");
     res.status(200).send(result);
   } catch (error) {
     res.status(400).send(error.message);
