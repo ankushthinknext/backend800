@@ -7,6 +7,7 @@ import productsRoutes from "./routes/productsRoutes.js";
 import usersRoutes from "./routes/usersRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
 import categoriesRoutes from "./routes/categoriesRoutes.js";
+import transactionsRoutes from "./routes/transactionsRoutes.js";
 
 import connectDB from "./dbconn.js";
 import createFakeProducts from "./seeders/productsSeeder.js";
@@ -30,6 +31,7 @@ connectDB();
 app.use("/products", productsRoutes);
 app.use("/users", usersRoutes);
 app.use("/categories", categoriesRoutes);
+app.use("/transactions", transactionsRoutes);
 
 app.use("/auth", authRoutes);
 
