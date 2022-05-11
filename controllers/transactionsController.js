@@ -1,6 +1,7 @@
 import Transaction from "../models/Transaction.js";
 
 async function createTransaction(req, res) {
+  console.log(req.body);
   try {
     let result = await Transaction.create(req.body);
     res.status(201).send({ success: "true", result });

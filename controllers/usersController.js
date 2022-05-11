@@ -42,4 +42,12 @@ async function createUser(req, res) {
   }
 }
 
-export { createUser };
+async function getUsers(req, res) {
+  try {
+    let result = await User.find({});
+    let totalRecords = await User({ find }).count();
+    res.status(200).send({ success: "true", result, totalRecords });
+  } catch (error) {}
+}
+
+export { createUser, getUsers };
